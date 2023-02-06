@@ -11,17 +11,30 @@ namespace X
 {
     public class AssetTools
     {
+        static string path = "Assets/xStudios/Assets/AssetSetting.asset";
+
 
         public static AssetSetting LoadSetting()
         {
-            AssetSetting assetSetting = AssetDatabase.LoadAssetAtPath<AssetSetting>( "Assets/xStudios/Assets/AssetSetting.asset" );
+            AssetSetting assetSetting = AssetDatabase.LoadAssetAtPath<AssetSetting>( path );
             return assetSetting;
         }
 
         [MenuItem( "xStudios/Assets/Setting" )]
         public static void Setting()
         {
-            Selection.activeObject = AssetDatabase.LoadMainAssetAtPath( "Assets/xStudios/Assets/AssetSetting.asset" );
+            if ( !File.Exists( path ) )
+            {
+                Directory.CreateDirectory( Path.GetDirectoryName( path ) );
+
+                var asset = ScriptableObject.CreateInstance<AssetSetting>();
+
+                AssetDatabase.CreateAsset( asset , path );
+                AssetDatabase.SaveAssets();
+                AssetDatabase.Refresh();
+            }
+
+            Selection.activeObject = AssetDatabase.LoadMainAssetAtPath( path );
         }
 
     }
