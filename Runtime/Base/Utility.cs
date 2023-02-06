@@ -108,7 +108,7 @@ namespace X
 #if UNITY_EDITOR
         public const string JpgExtension = ".jpg";
 #else
-        public const string PngExtension = ".unity3d";
+        public const string JpgExtension = ".unity3d";
 #endif
 
 #if UNITY_EDITOR
